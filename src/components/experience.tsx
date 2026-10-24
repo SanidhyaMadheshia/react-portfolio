@@ -1,84 +1,42 @@
+import { experience } from "@/data/profile"
+import { SectionHeader, Tag } from "@/components/primitives"
 
-interface ExperienceItemProps {
-  company: string
-  role: string
-  period: string
-  description: string
-  highlights: string[]
-}
-
-function ExperienceItem({ company, role, period, description, highlights }: ExperienceItemProps) {
+export function Experience() {
   return (
-    <div className="flex gap-8 pb-12 last:pb-0">
-      <div className="flex flex-col items-center">
-        <div className="w-px h-8 bg-border" />
-        <div className="w-4 h-4 rounded-full bg-foreground my-2" />
-      </div>
+    <section id="experience" className="border-t border-border">
+      <div className="mx-auto max-w-6xl px-6 py-24 md:py-32">
+        <SectionHeader index="02" title="Experience" kicker="Production systems and the teams behind them." />
 
-      <div className="flex-1 pb-8 last:pb-0">
-        <div className="flex flex-col md:flex-row md:justify-between md:items-start gap-2 mb-2">
-          <div>
-            <h3 className="text-lg font-semibold text-foreground">{role}</h3>
-            <p className="text-foreground/70">{company}</p>
-          </div>
-          <p className="text-sm text-muted-foreground whitespace-nowrap">{period}</p>
-        </div>
-        <p className="text-foreground/70 mb-4">{description}</p>
-        <ul className="space-y-2">
-          {highlights.map((highlight, idx) => (
-            <li key={idx} className="text-foreground/70 flex gap-3">
-              <span className="text-accent mt-1">→</span>
-              <span>{highlight}</span>
+        <ol className="relative space-y-2 md:space-y-4">
+          {experience.map((job) => (
+            <li
+              key={job.company}
+              className="reveal grid gap-3 rounded-2xl border border-transparent py-6 transition-colors duration-300 md:grid-cols-[200px_1fr] md:gap-10 md:p-8 md:hover:border-border md:hover:bg-card"
+            >
+              <p className="font-mono text-sm text-muted-foreground md:pt-1">{job.period}</p>
+              <div>
+                <h3 className="text-lg font-semibold tracking-tight">
+                  {job.role}
+                  <span className="text-muted-foreground"> · </span>
+                  <span className="text-brand">{job.company}</span>
+                </h3>
+                <ul className="mt-4 space-y-2 text-muted-foreground">
+                  {job.highlights.map((h) => (
+                    <li key={h} className="flex gap-3 leading-relaxed">
+                      <span className="mt-[0.7em] size-1 shrink-0 rounded-full bg-muted-foreground/60" aria-hidden="true" />
+                      <span>{h}</span>
+                    </li>
+                  ))}
+                </ul>
+                <div className="mt-5 flex flex-wrap gap-2">
+                  {job.stack.map((t) => (
+                    <Tag key={t}>{t}</Tag>
+                  ))}
+                </div>
+              </div>
             </li>
           ))}
-        </ul>
-      </div>
-    </div>
-  )
-}
-export function Experience() {
-  const experience = [
-    {
-      company: 'Inbotiq',
-      role: 'Full Stack Intern',
-      period: '2024 – Present',
-      description:
-        'Worked on a production AI voice bot platform handling outbound calls and real-time conversational workflows.',
-      highlights: [
-        'Built backend services integrating STT, TTS, and LLM-driven conversation pipelines.',
-        'Implemented webhook-based event systems for call lifecycle management, retries, and campaign execution.',
-        'Improved system reliability using VAD (Silero), session state management, and scalable APIs.',
-      ],
-    },
-    {
-      company: 'Codebase Club — IIIT Kota',
-      role: 'Coordinator & Web3 Lead',
-      period: '2023 – Present',
-      description:
-        'Led blockchain-focused community projects and mentored developers on production-grade engineering practices.',
-      highlights: [
-        'Led and shipped blockchain projects deploying smart contracts and dApps using Solidity, Web3.js, and Ethers.js.',
-        'Mentored 30+ developers on smart contract deployment, Git workflows, and collaborative development.',
-        'Organized weekly hands-on sessions focused on full-stack and blockchain integration.',
-      ],
-    },
-  ]
-
-  return (
-    <section className="py-24 px-6 md:px-12 lg:px-20 border-t border-border">
-      <div className="max-w-3xl mx-auto">
-        <div className="mb-16">
-          <h2 className="text-4xl md:text-5xl font-bold text-foreground mb-4">Experience</h2>
-          <p className="text-lg text-muted-foreground">
-            Production systems, ownership, and real-world engineering experience.
-          </p>
-        </div>
-
-        <div className="space-y-2">
-          {experience.map((exp) => (
-            <ExperienceItem key={exp.company} {...exp} />
-          ))}
-        </div>
+        </ol>
       </div>
     </section>
   )

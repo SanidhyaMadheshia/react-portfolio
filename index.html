@@ -2,28 +2,39 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#09090b" />
+    <!-- Apply saved theme before first paint to avoid a light/dark flash -->
+    <script>
+      (function () {
+        try {
+          var t = localStorage.getItem("theme") || "dark";
+          if (t === "system") t = matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
+          document.documentElement.classList.add(t);
+        } catch (e) { document.documentElement.classList.add("dark"); }
+      })();
+    </script>
 
     <!-- Primary Meta Tags -->
-    <title>Sanidhya Madheshia | Backend & Blockchain Engineer</title>
-    <meta name="title" content="Sanidhya Madheshia | Backend & Blockchain Engineer" />
-    <meta name="description" content="Sanidhya Madheshia is a Backend & Blockchain Engineer building real-time systems, scalable APIs, distributed services, and production-grade platforms. Experienced in Go, Node.js, Redis, PostgreSQL, WebSockets, and blockchain infrastructure." />
-    <meta name="keywords" content="Sanidhya Madheshia, Backend Engineer, Blockchain Engineer, Distributed Systems, Real-Time Systems, Go Developer, Node.js Backend, Redis, PostgreSQL, WebSockets, System Design, Scalable APIs, Blockchain Infrastructure" />
-    <meta name="author" content="Sanidhya Madheshia" />
+    <title>Sanidhya Madeshia | Backend Engineer</title>
+    <meta name="title" content="Sanidhya Madeshia | Backend Engineer" />
+    <meta name="description" content="Sanidhya Madeshia is a backend engineer and SDE intern at Amazon Alexa, building high-throughput, event-driven and real-time systems with Java, Go, Kafka, Redis, PostgreSQL and Kubernetes." />
+    <meta name="keywords" content="Sanidhya Madeshia, Sanidhya Madheshia, Backend Engineer, Kafka, Kubernetes, Spring Boot, Blockchain Engineer, Distributed Systems, Real-Time Systems, Go Developer, Node.js Backend, Redis, PostgreSQL, WebSockets, System Design, Scalable APIs, Blockchain Infrastructure" />
+    <meta name="author" content="Sanidhya Madeshia" />
     <meta name="robots" content="index, follow" />
 
     <!-- Open Graph / LinkedIn -->
     <meta property="og:type" content="website" />
     <meta property="og:url" content="https://portfolio.sanidhyamadeshia.me/" />
-    <meta property="og:title" content="Sanidhya Madheshia | Backend & Blockchain Engineer" />
+    <meta property="og:title" content="Sanidhya Madeshia | Backend Engineer" />
     <meta property="og:description" content="Building scalable backend systems, real-time architectures, and production infrastructure. Focused on reliability, concurrency, and system design." />
     <meta property="og:image" content="https://portfolio.sanidhyamadeshia.me/preview.png" />
 
     <!-- Twitter -->
     <meta property="twitter:card" content="summary_large_image" />
     <meta property="twitter:url" content="https://portfolio.sanidhyamadeshia.me/" />
-    <meta property="twitter:title" content="Sanidhya Madheshia | Backend & Blockchain Engineer" />
+    <meta property="twitter:title" content="Sanidhya Madeshia | Backend Engineer" />
     <meta property="twitter:description" content="Backend & Blockchain engineer focused on distributed systems, WebSockets, Redis, PostgreSQL, and scalable production architectures." />
     <meta property="twitter:image" content="https://portfolio.sanidhyamadeshia.me/preview.png" />
 

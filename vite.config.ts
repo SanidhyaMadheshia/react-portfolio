@@ -10,6 +10,10 @@ export default defineConfig({
 
     tailwindcss(),
   ],
+  build: {
+    // three.js lives in its own lazy-loaded chunk (hero-scene), so a large chunk is expected
+    chunkSizeWarningLimit: 1000,
+  },
   resolve: {
     alias: {
       "@": path.resolve(__dirname, "./src"),

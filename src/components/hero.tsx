@@ -1,139 +1,81 @@
-import { useEffect, useState } from "react"
-import { Button } from "@/components/ui/button"
-import { Download, Github, Linkedin, Mail, Moon, Sun, X } from "lucide-react"
-import profileImage from "@/assets/image2.png"
+import { lazy, Suspense } from "react"
+import { ArrowDownRight, Download } from "lucide-react"
+import { profile } from "@/data/profile"
+import { SocialLinks } from "@/components/primitives"
+
+const HeroScene = lazy(() => import("@/components/hero-scene"))
+
+// WebGL check so devices without it get a clean layout instead of a broken canvas.
+const hasWebGL = (() => {
+  try {
+    const c = document.createElement("canvas")
+    return !!(c.getContext("webgl2") || c.getContext("webgl"))
+  } catch {
+    return false
+  }
+})()
 
 export function Hero() {
-  const [theme, setTheme] = useState<"light" | "dark">("light")
-
-  useEffect(() => {
-    const root = document.documentElement
-    if (theme === "dark") {
-      root.classList.add("dark")
-    } else {
-      root.classList.remove("dark")
-    }
-  }, [theme])
-
-  function handleDownloadResume() {
-
-
-    window.location.href = "/resumejan24.pdf"
-
-  }
   return (
-    <header className="min-h-screen flex flex-col justify-center px-6 md:px-12 lg:px-20 py-20">
-      <div className="flex justify-between items-start mb-20">
-        <div />
-        <button
-          onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
-          className="p-2 rounded-lg border border-border hover:bg-accent hover:text-accent-foreground transition-colors"
-          aria-label="Toggle theme"
-        >
-          {theme === "dark" ? <Sun size={20} /> : <Moon size={20} />}
-        </button>
-      </div>
+    <section id="top" className="relative isolate overflow-hidden">
+      <div className="dot-grid pointer-events-none absolute inset-0 -z-10" aria-hidden="true" />
 
-      {/* <div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-center max-w-6xl"> */}
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-center max-w-7xl mx-auto w-full">
-
-        <div className="space-y-6">
-          <div>
-            <h1 className="text-5xl md:text-6xl font-bold tracking-tight text-foreground mb-2">
-              Sanidhya Madeshia
-            </h1>
-            <p className="text-xl text-muted-foreground">
-              Backend and Blockchain Engineer
-            </p>
-          </div>
-
-          <p className="text-lg text-foreground leading-relaxed max-w-xl">
-            I build real-time systems, scalable infrastructure, and
-            production-grade web applications.
+      <div className="mx-auto grid min-h-[100svh] max-w-6xl grid-cols-1 items-center gap-8 px-6 pb-16 pt-28 lg:grid-cols-[minmax(0,1.1fr)_minmax(0,1fr)] lg:pt-16">
+        <div className="relative z-10 min-w-0">
+          <p className="reveal inline-flex items-center gap-2 rounded-full border border-border bg-card/60 px-3 py-1 font-mono text-xs text-muted-foreground backdrop-blur">
+            <span className="relative flex size-2">
+              <span className="absolute inline-flex size-full rounded-full bg-emerald-500 opacity-60 motion-safe:animate-ping" />
+              <span className="relative inline-flex size-2 rounded-full bg-emerald-500" />
+            </span>
+            {profile.current}
           </p>
 
-          <div className="flex gap-4 pt-4">
-            <Button className="bg-foreground text-background hover:bg-foreground/90">
-              <a href="#projects">View Projects</a>
-            </Button>
-              <Button
-                variant="outline"
-                className="border-foreground text-foreground hover:bg-foreground hover:text-background bg-transparent"
-                onClick={handleDownloadResume}
-              >
-                View Resume
-              </Button>
+          <h1 className="reveal mt-6 text-5xl font-semibold tracking-tighter text-balance sm:text-6xl lg:text-7xl">
+            {profile.name}
+          </h1>
+          <p className="reveal mt-3 text-xl font-medium tracking-tight text-muted-foreground sm:text-2xl">
+            {profile.role} <span className="text-brand">/</span> Distributed &amp; Real-Time Systems
+          </p>
+          <p className="reveal mt-6 max-w-xl text-base leading-relaxed text-muted-foreground sm:text-lg">
+            {profile.tagline}
+          </p>
+
+          <div className="reveal mt-10 flex flex-wrap items-center gap-3">
             <a
-               href="/resumejan24.pdf" download="Sanidhya_Madeshia_Resume.pdf"
-               target="_blank"
-               
+              href="#projects"
+              className="inline-flex h-11 items-center gap-2 rounded-lg bg-foreground px-5 text-sm font-medium text-background transition-opacity duration-200 hover:opacity-90"
             >
-              <Download size={20}
-                aria-label="download Resume"
-              />
+              View projects
+              <ArrowDownRight size={16} aria-hidden="true" />
+            </a>
+            <a
+              href={profile.resume}
+              download="Sanidhya_Madeshia_Resume.pdf"
+              className="inline-flex h-11 items-center gap-2 rounded-lg border border-border px-5 text-sm font-medium transition-colors duration-200 hover:border-foreground/40 hover:bg-secondary"
+            >
+              <Download size={16} aria-hidden="true" />
+              Download resume
             </a>
           </div>
 
-          <div className="flex gap-4 pt-8 border-t border-border">
-            <a
-              href="https://github.com/SanidhyaMadheshia"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="text-foreground hover:text-muted-foreground transition-colors"
-              aria-label="GitHub"
-            >
-              <Github size={24} />
-            </a>
-
-            <a
-              href="https://www.linkedin.com/in/sanidhya-madeshia-620099293/"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="text-foreground hover:text-muted-foreground transition-colors"
-              aria-label="LinkedIn"
-            >
-              <Linkedin size={24} />
-            </a>
-
-            <a
-              href="mailto:sanidhyamadeshia@gmail.com"
-              className="text-foreground hover:text-muted-foreground transition-colors"
-              aria-label="Email"
-            >
-              <Mail size={24} />
-            </a>
-            <a
-              href="https://x.com/sanidhya_eth"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="text-foreground hover:text-muted-foreground transition-colors"
-              aria-label="X"
-            >
-              {/* <Mail size={24} /> */}
-              <X size={24} />
-
-            </a>
-
+          <div className="reveal mt-8 -ml-3">
+            <SocialLinks />
           </div>
         </div>
 
-        <div className="flex justify-center md:justify-end">
-          <img
-            src={profileImage}
-            alt="Sanidhya's Photo"
-            // className="rounded-lg z-30 border border-border w-64 h-100 md:w-80 md:h-80 object-cover"
-            className="
-                rounded-xl 
-                border border-border 
-                object-cover 
-                w-72 h-72
-                md:w-[420px] md:h-[420px]
-                lg:w-[460px] lg:h-[460px]
-              "
-
+        <div className="relative -mx-6 h-[340px] sm:h-[440px] lg:mx-0 lg:h-[560px]">
+          {/* soft accent glow behind the mesh */}
+          <div
+            className="pointer-events-none absolute inset-0 -z-10 m-auto size-2/3 rounded-full bg-brand/10 blur-3xl"
+            aria-hidden="true"
           />
+          {hasWebGL && (
+            <Suspense fallback={null}>
+              <HeroScene />
+            </Suspense>
+          )}
         </div>
       </div>
-    </header>
+    </section>
   )
 }
